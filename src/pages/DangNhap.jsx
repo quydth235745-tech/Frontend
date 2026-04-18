@@ -15,7 +15,8 @@ function Login() {
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
   const { login } = useContext(AuthContext)
-  const enableGoogleLogin = import.meta.env.VITE_ENABLE_GOOGLE_LOGIN === 'true'
+  const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID
+  const enableGoogleLogin = import.meta.env.VITE_ENABLE_GOOGLE_LOGIN === 'true' && !!googleClientId
 
   const handleLogin = async (e) => {
     e.preventDefault()
@@ -109,7 +110,7 @@ function Login() {
             </>
           ) : (
             <p style={{ color: '#64748b', fontSize: '13px' }}>
-              Đăng nhập Google đang tắt trong môi trường local.
+              Đăng nhập Google đang tắt hoặc chưa cấu hình client ID.
             </p>
           )}
         </div>
