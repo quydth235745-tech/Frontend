@@ -23,9 +23,11 @@ export default function MonAnThem() {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setFormData(prev => ({ ...prev, image: file }));
       const reader = new FileReader();
-      reader.onloadend = () => setImagePreview(reader.result);
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+        setFormData(prev => ({ ...prev, image: reader.result }));
+      };
       reader.readAsDataURL(file);
     }
   };
@@ -45,7 +47,11 @@ export default function MonAnThem() {
       toast.success('✅ Thêm món ăn thành công');
       navigate('/admin/monan');
     } catch (error) {
-      toast.error('❌ Lỗi khi thêm món ăn');
+      const backendMessage = error.response?.data?.message;
+      const backendErrors = Array.isArray(error.response?.data?.errors)
+        ? error.response.data.errors.join(' | ')
+        : '';
+      toast.error(backendMessage || backendErrors || '❌ Lỗi khi thêm món ăn');
       console.error(error);
     }
   };
