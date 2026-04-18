@@ -10,7 +10,7 @@ const axiosClient = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  timeout: 10000, // 10 second timeout
+  timeout: 30000, // 30 second timeout (for Render cold starts)
 });
 
 // ===== REQUEST INTERCEPTOR =====
@@ -80,9 +80,11 @@ axiosClient.interceptors.response.use(
     // Log detailed error info
     console.error('❌ API Error:', {
       status: error.response?.status,
+      code: error.code,
       message: error.response?.data?.message || error.message,
       url: error.config?.url,
       method: error.config?.method,
+      baseURL: error.config?.baseURL,
     });
 
     return Promise.reject(error);
