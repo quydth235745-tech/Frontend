@@ -1,34 +1,35 @@
-import React, { useContext } from 'react'
+import React, { useContext, lazy, Suspense } from 'react'
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useLocation, Navigate } from 'react-router-dom'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import ChanRaLoi from './components/ChanRaLoi'
-import TrangDau from './pages/TrangDau'
-import TrangChu from './pages/TrangChu'
-import DangNhap from './pages/DangNhap'
-import DangKy from './pages/DangKy'
-import GioHang from './pages/GioHang'
-import QuanLyAdmin from './pages/QuanLyAdmin'
-import ChiTietMon from './pages/ChiTietMon'
-import DonHangKhachHang from './pages/DonHangKhachHang'
-import ChiTietDonHangKhachHang from './pages/ChiTietDonHangKhachHang'
-import DoiMatKhau from './pages/DoiMatKhau'
-import AdminKhuyenMai from './pages/AdminKhuyenMai'
-import AdminKhuyenMaiThem from './pages/AdminKhuyenMaiThem'
-import AdminKhuyenMaiSua from './pages/AdminKhuyenMaiSua'
-import AdminMonAn from './pages/AdminMonAn'
-import AdminMonAnThem from './pages/AdminMonAnThem'
-import AdminMonAnSua from './pages/AdminMonAnSua'
-import AdminDonHang from './pages/AdminDonHang'
-import AdminDonHangChiTiet from './pages/AdminDonHangChiTiet'
-import AdminBinhLuan from './pages/AdminBinhLuan'
-import AdminThanhToan from './pages/AdminThanhToan'
-import AdminInHoaDon from './pages/AdminInHoaDon'
 import { AuthProvider, AuthContext } from './context/ContextXacThuc'
 import TuyenBaoVe from './routes/TuyenBaoVe'
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
+
+const TrangDau = lazy(() => import('./pages/TrangDau'));
+const TrangChu = lazy(() => import('./pages/TrangChu'));
+const DangNhap = lazy(() => import('./pages/DangNhap'));
+const DangKy = lazy(() => import('./pages/DangKy'));
+const GioHang = lazy(() => import('./pages/GioHang'));
+const QuanLyAdmin = lazy(() => import('./pages/QuanLyAdmin'));
+const ChiTietMon = lazy(() => import('./pages/ChiTietMon'));
+const DonHangKhachHang = lazy(() => import('./pages/DonHangKhachHang'));
+const ChiTietDonHangKhachHang = lazy(() => import('./pages/ChiTietDonHangKhachHang'));
+const DoiMatKhau = lazy(() => import('./pages/DoiMatKhau'));
+const AdminKhuyenMai = lazy(() => import('./pages/AdminKhuyenMai'));
+const AdminKhuyenMaiThem = lazy(() => import('./pages/AdminKhuyenMaiThem'));
+const AdminKhuyenMaiSua = lazy(() => import('./pages/AdminKhuyenMaiSua'));
+const AdminMonAn = lazy(() => import('./pages/AdminMonAn'));
+const AdminMonAnThem = lazy(() => import('./pages/AdminMonAnThem'));
+const AdminMonAnSua = lazy(() => import('./pages/AdminMonAnSua'));
+const AdminDonHang = lazy(() => import('./pages/AdminDonHang'));
+const AdminDonHangChiTiet = lazy(() => import('./pages/AdminDonHangChiTiet'));
+const AdminBinhLuan = lazy(() => import('./pages/AdminBinhLuan'));
+const AdminThanhToan = lazy(() => import('./pages/AdminThanhToan'));
+const AdminInHoaDon = lazy(() => import('./pages/AdminInHoaDon'));
 
 // Tách Navbar thành component riêng
 function Navbar() {
@@ -139,42 +140,44 @@ function AppContent() {
       <Navbar />
 
       <div className="routes-container">
-        <Routes>
-          <Route path="/" element={<TrangDau />} />
-          <Route path="/menu" element={<TrangChu />} />
-          <Route path="/login" element={<DangNhap />} />
-          <Route path="/register" element={<DangKy />} />
-          <Route path="/cart" element={<CartRoute />} />
-          <Route path="/orders" element={<TuyenBaoVe><DonHangKhachHang /></TuyenBaoVe>} />
-          <Route path="/orders/:id" element={<TuyenBaoVe><ChiTietDonHangKhachHang /></TuyenBaoVe>} />
-          <Route path="/change-password" element={<TuyenBaoVe><DoiMatKhau /></TuyenBaoVe>} />
-          <Route
-            path="/admin"
-            element={
-              <TuyenBaoVe allowedRoles={[ 'admin' ]}>
-                <QuanLyAdmin />
-              </TuyenBaoVe>
-            }
-          />
-          {/* Khuyến Mãi Routes */}
-          <Route path="/admin/khuyenmai" element={<TuyenBaoVe allowedRoles={['admin']}><AdminKhuyenMai /></TuyenBaoVe>} />
-          <Route path="/admin/khuyenmai/them" element={<TuyenBaoVe allowedRoles={['admin']}><AdminKhuyenMaiThem /></TuyenBaoVe>} />
-          <Route path="/admin/khuyenmai/sua/:id" element={<TuyenBaoVe allowedRoles={['admin']}><AdminKhuyenMaiSua /></TuyenBaoVe>} />
-          {/* Món Ăn Routes */}
-          <Route path="/admin/monan" element={<TuyenBaoVe allowedRoles={['admin']}><AdminMonAn /></TuyenBaoVe>} />
-          <Route path="/admin/monan/them" element={<TuyenBaoVe allowedRoles={['admin']}><AdminMonAnThem /></TuyenBaoVe>} />
-          <Route path="/admin/monan/sua/:id" element={<TuyenBaoVe allowedRoles={['admin']}><AdminMonAnSua /></TuyenBaoVe>} />
-          {/* Đơn Hàng Routes */}
-          <Route path="/admin/donhang" element={<TuyenBaoVe allowedRoles={['admin']}><AdminDonHang /></TuyenBaoVe>} />
-          <Route path="/admin/donhang/:id" element={<TuyenBaoVe allowedRoles={['admin']}><AdminDonHangChiTiet /></TuyenBaoVe>} />
-          {/* Bình Luận Routes */}
-          <Route path="/admin/binhluan" element={<TuyenBaoVe allowedRoles={['admin']}><AdminBinhLuan /></TuyenBaoVe>} />
-          {/* Thanh Toán Routes */}
-          <Route path="/admin/thanhtoan" element={<TuyenBaoVe allowedRoles={['admin']}><AdminThanhToan /></TuyenBaoVe>} />
-          {/* In Hóa Đơn Routes */}
-          <Route path="/admin/inhoadon/:id" element={<TuyenBaoVe allowedRoles={['admin']}><AdminInHoaDon /></TuyenBaoVe>} />
-          <Route path="/food/:id" element={<ChiTietMon />} />
-        </Routes>
+        <Suspense fallback={<div>Dang tai trang...</div>}>
+          <Routes>
+            <Route path="/" element={<TrangDau />} />
+            <Route path="/menu" element={<TrangChu />} />
+            <Route path="/login" element={<DangNhap />} />
+            <Route path="/register" element={<DangKy />} />
+            <Route path="/cart" element={<CartRoute />} />
+            <Route path="/orders" element={<TuyenBaoVe><DonHangKhachHang /></TuyenBaoVe>} />
+            <Route path="/orders/:id" element={<TuyenBaoVe><ChiTietDonHangKhachHang /></TuyenBaoVe>} />
+            <Route path="/change-password" element={<TuyenBaoVe><DoiMatKhau /></TuyenBaoVe>} />
+            <Route
+              path="/admin"
+              element={
+                <TuyenBaoVe allowedRoles={[ 'admin' ]}>
+                  <QuanLyAdmin />
+                </TuyenBaoVe>
+              }
+            />
+            {/* Khuyến Mãi Routes */}
+            <Route path="/admin/khuyenmai" element={<TuyenBaoVe allowedRoles={['admin']}><AdminKhuyenMai /></TuyenBaoVe>} />
+            <Route path="/admin/khuyenmai/them" element={<TuyenBaoVe allowedRoles={['admin']}><AdminKhuyenMaiThem /></TuyenBaoVe>} />
+            <Route path="/admin/khuyenmai/sua/:id" element={<TuyenBaoVe allowedRoles={['admin']}><AdminKhuyenMaiSua /></TuyenBaoVe>} />
+            {/* Món Ăn Routes */}
+            <Route path="/admin/monan" element={<TuyenBaoVe allowedRoles={['admin']}><AdminMonAn /></TuyenBaoVe>} />
+            <Route path="/admin/monan/them" element={<TuyenBaoVe allowedRoles={['admin']}><AdminMonAnThem /></TuyenBaoVe>} />
+            <Route path="/admin/monan/sua/:id" element={<TuyenBaoVe allowedRoles={['admin']}><AdminMonAnSua /></TuyenBaoVe>} />
+            {/* Đơn Hàng Routes */}
+            <Route path="/admin/donhang" element={<TuyenBaoVe allowedRoles={['admin']}><AdminDonHang /></TuyenBaoVe>} />
+            <Route path="/admin/donhang/:id" element={<TuyenBaoVe allowedRoles={['admin']}><AdminDonHangChiTiet /></TuyenBaoVe>} />
+            {/* Bình Luận Routes */}
+            <Route path="/admin/binhluan" element={<TuyenBaoVe allowedRoles={['admin']}><AdminBinhLuan /></TuyenBaoVe>} />
+            {/* Thanh Toán Routes */}
+            <Route path="/admin/thanhtoan" element={<TuyenBaoVe allowedRoles={['admin']}><AdminThanhToan /></TuyenBaoVe>} />
+            {/* In Hóa Đơn Routes */}
+            <Route path="/admin/inhoadon/:id" element={<TuyenBaoVe allowedRoles={['admin']}><AdminInHoaDon /></TuyenBaoVe>} />
+            <Route path="/food/:id" element={<ChiTietMon />} />
+          </Routes>
+        </Suspense>
       </div>
 
       <ToastContainer position="top-right" autoClose={3000} />
