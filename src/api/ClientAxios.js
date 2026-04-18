@@ -2,13 +2,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const envApiUrl = import.meta.env.VITE_API_URL?.trim() || '';
-const isBrowser = typeof window !== 'undefined';
-const isLocalHost = isBrowser && ['localhost', '127.0.0.1'].includes(window.location.hostname);
-const isAbsoluteUrl = /^https?:\/\//i.test(envApiUrl);
-
-// On deployed frontend hosts, prefer same-origin requests to avoid browser CORS issues.
-// API calls in this project already include '/api/...', so fallback baseURL must be ''.
-const resolvedBaseURL = !isLocalHost && isAbsoluteUrl ? '' : envApiUrl;
+const resolvedBaseURL = envApiUrl.replace(/\/$/, '');
 
 const axiosClient = axios.create({
   baseURL: resolvedBaseURL,
