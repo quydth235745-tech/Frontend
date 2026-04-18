@@ -68,9 +68,9 @@ export default function KhuyenMai() {
             {coupons.map(coupon => (
               <tr key={coupon._id}>
                 <td>{coupon.code}</td>
-                <td>{coupon.type === 'percentage' ? 'Phần Trăm' : 'Cố Định'}</td>
-                <td>{coupon.value}{'%'}</td>
-                <td>{new Date(coupon.expiryDate).toLocaleDateString('vi-VN')}</td>
+                <td>{coupon.discountType === 'percent' ? 'Phần Trăm' : 'Cố Định'}</td>
+                <td>{coupon.discountValue}{coupon.discountType === 'percent' ? '%' : ' VND'}</td>
+                <td>{coupon.expiresAt ? new Date(coupon.expiresAt).toLocaleDateString('vi-VN') : '-'}</td>
                 <td>
                   <Link to={`/admin/khuyenmai/sua/${coupon._id}`} className={styles.btnEdit}>
                     ✏️

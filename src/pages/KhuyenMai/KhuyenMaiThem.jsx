@@ -11,7 +11,8 @@ export default function KhuyenMaiThem() {
     type: 'percentage',
     value: '',
     expiryDate: '',
-    minOrderValue: 0
+    minOrderValue: 0,
+    maxUses: 1
   });
 
   const handleChange = (e) => {
@@ -22,7 +23,14 @@ export default function KhuyenMaiThem() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await ClientAxios.post('/api/coupons', formData);
+      await ClientAxios.post('/api/coupons', {
+        ma_voucher: formData.code.trim(),
+        loai_giam: formData.type === 'percentage' ? 'PhanTram' : 'CoDinh',
+        gia_tri: Number(formData.value),
+        don_toi_thieu: Number(formData.minOrderValue || 0),
+        ngay_het_han: formData.expiryDate,
+        maxUses: Number(formData.maxUses || 1)
+      });
       toast.success('✅ Thêm khuyến mãi thành công');
       navigate('/admin/khuyenmai');
     } catch (error) {
@@ -68,6 +76,17 @@ export default function KhuyenMaiThem() {
             type="date"
             name="expiryDate"
             value={formData.expiryDate}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className={styles.formGroup}>
+          <label>Số lượt dùng tối đa:</label>
+          <input
+            type="number"
+            name="maxUses"
+            min="1"
+            value={formData.maxUses}
             onChange={handleChange}
             required
           />

@@ -9,7 +9,7 @@ export default function MonAnThem() {
   const [formData, setFormData] = useState({
     name: '',
     price: '',
-    category: 'Chính Yếu',
+    category: '',
     description: '',
     image: ''
   });
@@ -33,18 +33,15 @@ export default function MonAnThem() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const data = new FormData();
-      data.append('name', formData.name);
-      data.append('price', formData.price);
-      data.append('category', formData.category);
-      data.append('description', formData.description);
-      if (formData.image && formData.image instanceof File) {
-        data.append('image', formData.image);
-      }
-      
-      await ClientAxios.post('/api/foods', data, {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      });
+      const payload = {
+        name: formData.name.trim(),
+        price: Number(formData.price),
+        category: formData.category.trim(),
+        description: formData.description.trim(),
+        image: formData.image || ''
+      };
+
+      await ClientAxios.post('/api/foods', payload);
       toast.success('✅ Thêm món ăn thành công');
       navigate('/admin/monan');
     } catch (error) {
@@ -80,9 +77,10 @@ export default function MonAnThem() {
         <div className={styles.formGroup}>
           <label>Loại:</label>
           <select name="category" value={formData.category} onChange={handleChange}>
-            <option>Chính Yếu</option>
-            <option>Tráng Miệng</option>
-            <option>Thức Uống</option>
+            <option value="">-- Chọn loại --</option>
+            <option value="Chính">Chính</option>
+            <option value="Món ăn vặt">Món ăn vặt</option>
+            <option value="Nước">Nước</option>
           </select>
         </div>
         <div className={styles.formGroup}>

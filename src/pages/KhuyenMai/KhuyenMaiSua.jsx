@@ -12,7 +12,8 @@ export default function KhuyenMaiSua() {
     type: 'percentage',
     value: '',
     expiryDate: '',
-    minOrderValue: 0
+    minOrderValue: 0,
+    maxUses: 1
   });
   const [loading, setLoading] = useState(true);
 
@@ -23,7 +24,16 @@ export default function KhuyenMaiSua() {
   const fetchCoupon = async () => {
     try {
       const response = await ClientAxios.get(`/api/coupons/${id}`);
-      setFormData(response.data.data || response.data);
+      const coupon = response.data.data || response.data;
+
+      setFormData({
+        code: coupon.code || '',
+        type: coupon.discountType === 'fixed' ? 'fixed' : 'percentage',
+        value: coupon.discountValue ?? '',
+        expiryDate: coupon.expiresAt ? new Date(coupon.expiresAt).toISOString().slice(0, 10) : '',
+        minOrderValue: coupon.minOrderValue ?? 0,
+        maxUses: coupon.maxUses ?? 1
+      });
     } catch (error) {
       toast.error('❌ Lỗi khi tải khuyến mãi');
       console.error(error);
@@ -40,7 +50,14 @@ export default function KhuyenMaiSua() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await ClientAxios.put(`/api/coupons/${id}`, formData);
+      await ClientAxios.put(`/api/coupons/${id}`, {
+        ma_voucher: formData.code.trim(),
+        loai_giam: formData.type === 'percentage' ? 'PhanTram' : 'CoDinh',
+        gia_tri: Number(formData.value),
+        don_toi_thieu: Number(formData.minOrderValue || 0),
+        ngay_het_han: formData.expiryDate,
+        maxUses: Number(formData.maxUses || 1)
+      });
       toast.success('✅ Cập nhật khuyến mãi thành công');
       navigate('/admin/khuyenmai');
     } catch (error) {
@@ -88,6 +105,17 @@ export default function KhuyenMaiSua() {
             type="date"
             name="expiryDate"
             value={formData.expiryDate}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className={styles.formGroup}>
+          <label>Số lượt dùng tối đa:</label>
+          <input
+            type="number"
+            name="maxUses"
+            min="1"
+            value={formData.maxUses}
             onChange={handleChange}
             required
           />
