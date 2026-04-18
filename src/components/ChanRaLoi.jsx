@@ -1,6 +1,8 @@
 import React from 'react';
 import { toast } from 'react-toastify';
 
+const isDev = import.meta.env.DEV;
+
 /**
  * Error Boundary Component
  * Catches React component errors and displays fallback UI
@@ -55,7 +57,7 @@ class ChanRaLoi extends React.Component {
             <p style={{ fontSize: '1em', marginBottom: '20px', color: '#666' }}>
               We encountered an unexpected error. Please try refreshing the page.
             </p>
-            {process.env.NODE_ENV === 'development' && (
+            {isDev && (
               <div
                 style={{
                   backgroundColor: '#f5f5f5',
