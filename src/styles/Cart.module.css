@@ -1,0 +1,420 @@
+/* Cart Container */
+.container {
+  display: flex;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Left Column - Cart Items */
+.leftColumn {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Cart Items List */
+.cartItemsList {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cartItemsEmpty {
+  text-align: center;
+  padding: 40px;
+  color: #999;
+}
+
+.cartItemsEmpty svg {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 20px;
+  opacity: 0.5;
+}
+
+/* Individual Cart Item */
+.cartItem {
+  display: flex;
+  gap: 15px;
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.cartItem:hover {
+  background-color: #f9f9f9;
+}
+
+.cartItem:last-child {
+  border-bottom: none;
+}
+
+.cartItemImage {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  object-fit: cover;
+  background-color: #f0f0f0;
+}
+
+.cartItemInfo {
+  flex: 1;
+}
+
+.cartItemName {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.cartItemPrice {
+  color: #e74c3c;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.cartItemQuantity {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.quantityButton {
+  width: 28px;
+  height: 28px;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.quantityButton:hover {
+  background-color: #f0f0f0;
+  border-color: #999;
+}
+
+.quantityButton:active {
+  transform: scale(0.95);
+}
+
+.quantityDisplay {
+  width: 40px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.deleteButton {
+  padding: 6px 12px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background-color 0.3s ease;
+}
+
+.deleteButton:hover {
+  background-color: #c0392b;
+}
+
+/* Clear Cart Button */
+.clearCartButton {
+  padding: 10px 20px;
+  background-color: #95a5a6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.clearCartButton:hover {
+  background-color: #7f8c8d;
+}
+
+/* Right Column - Summary & Form */
+.rightColumn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Order Summary */
+.orderSummary {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.summaryTitle {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+
+.summaryRow:last-child {
+  border-bottom: none;
+}
+
+.summaryLabel {
+  color: #666;
+}
+
+.summaryValue {
+  font-weight: 600;
+  color: #333;
+}
+
+.summaryTotal {
+  padding: 15px 0;
+  border-top: 2px solid #eee;
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #e74c3c;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Checkout Form */
+.checkoutForm {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.formTitle {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.formGroup {
+  margin-bottom: 15px;
+}
+
+.formLabel {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #333;
+  font-size: 14px;
+}
+
+.formInput {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.formInput:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.formInput.error {
+  border-color: #e74c3c;
+  background-color: #fadbd8;
+}
+
+.errorMessage {
+  color: #e74c3c;
+  font-size: 12px;
+  margin-top: 4px;
+  display: block;
+}
+
+.formTextarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  resize: vertical;
+  min-height: 80px;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.formTextarea:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+/* Submit Button */
+.submitButton {
+  width: 100%;
+  padding: 14px;
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.submitButton:hover:not(:disabled) {
+  background-color: #229954;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+}
+
+.submitButton:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.submitButton:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.loadingSpinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    gap: 20px;
+    padding: 15px;
+  }
+
+  .leftColumn {
+    flex: 1;
+  }
+
+  .rightColumn {
+    flex: 1;
+  }
+
+  .cartItem {
+    flex-wrap: wrap;
+  }
+
+  .cartItemImage {
+    width: 60px;
+    height: 60px;
+  }
+
+  .quantityButton {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+  }
+
+  .formInput,
+  .formTextarea {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+
+  .summaryRow {
+    font-size: 13px;
+  }
+
+  .summaryTotal {
+    font-size: 16px;
+  }
+
+  .submitButton {
+    padding: 12px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 10px;
+    gap: 15px;
+  }
+
+  .cartItem {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .cartItemImage {
+    width: 50px;
+    height: 50px;
+  }
+
+  .cartItemName {
+    font-size: 14px;
+  }
+
+  .cartItemPrice {
+    font-size: 13px;
+  }
+
+  .deleteButton {
+    padding: 4px 8px;
+    font-size: 11px;
+  }
+
+  .formGroup {
+    margin-bottom: 12px;
+  }
+
+  .formLabel {
+    font-size: 13px;
+  }
+
+  .formInput,
+  .formTextarea {
+    padding: 8px 10px;
+    font-size: 16px;
+  }
+}

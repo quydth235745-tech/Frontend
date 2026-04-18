@@ -1,0 +1,228 @@
+.header {
+  margin: 18px 0 34px;
+}
+
+.headerTitle {
+  color: #2c3e50;
+  font-size: 46px;
+  font-weight: bold;
+  margin: 0 0 10px 0;
+}
+
+.headerSubtitle {
+  color: #7f8c8d;
+  margin: 0;
+  font-size: 20px;
+}
+
+/* Stats Cards Grid */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  margin-bottom: 36px;
+}
+
+.statCard {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  border-left: 6px solid;
+}
+
+.statCard.food {
+  border-left-color: #ff9f43;
+}
+
+.statCard.order {
+  border-left-color: #3742fa;
+}
+
+.statCard.user {
+  border-left-color: #2ed573;
+}
+
+.statCard.revenue {
+  border-left-color: #fdcb6e;
+}
+
+.statIcon {
+  font-size: 38px;
+  margin-bottom: 16px;
+}
+
+.statLabel {
+  margin: 0 0 12px 0;
+  color: #7f8c8d;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.statValue {
+  margin: 0;
+  font-size: 46px;
+  font-weight: bold;
+}
+
+.statValue.food {
+  color: #ff9f43;
+}
+
+.statValue.order {
+  color: #3742fa;
+}
+
+.statValue.user {
+  color: #2ed573;
+}
+
+.statValue.revenue {
+  color: #fdcb6e;
+}
+
+.statDescription {
+  margin: 12px 0 0 0;
+  color: #95a5a6;
+  font-size: 15px;
+}
+
+/* Charts Grid */
+.chartsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(440px, 1fr));
+  gap: 24px;
+  margin-top: 36px;
+}
+
+.chartCard {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.chartTitle {
+  color: #2c3e50;
+  font-size: 28px;
+  font-weight: bold;
+  margin: 0 0 24px 0;
+}
+
+/* Revenue Chart */
+.revenueChart {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  height: 260px;
+  gap: 12px;
+}
+
+.barContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.bar {
+  width: 100%;
+  background-color: #ff9f43;
+  border-radius: 8px 8px 0 0;
+  transition: height 0.3s;
+}
+
+.bar.secondary {
+  background-color: #3742fa;
+}
+
+.bar.tertiary {
+  background-color: #2ed573;
+}
+
+.bar.quaternary {
+  background-color: #fdcb6e;
+}
+
+.barLabel {
+  margin: 10px 0 0 0;
+  color: #7f8c8d;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.barValue {
+  margin: 6px 0 0 0;
+  color: #2c3e50;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Distribution Chart */
+.distributionContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.distributionRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.categoryName {
+  color: #2c3e50;
+  font-weight: 600;
+  font-size: 17px;
+}
+
+.categoryPercent {
+  color: #7f8c8d;
+  font-size: 15px;
+}
+
+.progressBar {
+  width: 100%;
+  height: 28px;
+  background-color: #ecf0f1;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background-color: #ff9f43;
+  transition: width 0.3s;
+  border-radius: 12px;
+}
+
+.progress.blue {
+  background-color: #3742fa;
+}
+
+.progress.green {
+  background-color: #2ed573;
+}
+
+@media (max-width: 900px) {
+  .headerTitle {
+    font-size: 34px;
+  }
+
+  .headerSubtitle {
+    font-size: 16px;
+  }
+
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .chartsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .chartTitle {
+    font-size: 22px;
+  }
+}

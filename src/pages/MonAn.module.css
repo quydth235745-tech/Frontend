@@ -1,0 +1,182 @@
+.fullPage {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f5f5f5;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: white;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.toolbarLeft h2 {
+  margin: 0;
+  color: #2c3e50;
+}
+
+.toolbarRight {
+  display: flex;
+  gap: 10px;
+}
+
+.backBtn, .addBtn {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.backBtn {
+  background: #95a5a6;
+  color: white;
+}
+
+.backBtn:hover {
+  background: #7f8c8d;
+}
+
+.addBtn {
+  background: #27ae60;
+  color: white;
+}
+
+.addBtn:hover {
+  background: #229954;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table th,
+.table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.table th {
+  background: #ff9f43;
+  color: white;
+  font-weight: bold;
+}
+
+.table tbody tr:hover {
+  background: #f9f9f9;
+}
+
+.btnEdit,
+.btnDelete {
+  margin-right: 8px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.btnEdit {
+  background: #3498db;
+  color: white;
+}
+
+.btnEdit:hover {
+  background: #2980b9;
+}
+
+.btnDelete {
+  background: #e74c3c;
+  color: white;
+}
+
+.btnDelete:hover {
+  background: #c0392b;
+}
+
+.form {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.formGroup {
+  margin-bottom: 15px;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.formGroup input,
+.formGroup select,
+.formGroup textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.formGroup input:focus,
+.formGroup select:focus,
+.formGroup textarea:focus {
+  outline: none;
+  border-color: #ff9f43;
+  box-shadow: 0 0 0 3px rgba(255, 159, 67, 0.1);
+}
+
+.formGroup img {
+  margin-top: 10px;
+  border-radius: 4px;
+}
+
+.btnSubmit {
+  width: 100%;
+  padding: 12px;
+  background: #ff9f43;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btnSubmit:hover {
+  background: #ffb366;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+}

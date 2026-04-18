@@ -1,0 +1,262 @@
+/* Home Page Styling */
+.home-container {
+  display: flex;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+}
+
+/* Sidebar */
+.sidebar {
+  width: 300px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 240, 220, 0.9) 100%);
+  backdrop-filter: blur(10px);
+  padding: 30px 20px;
+  border-right: 3px solid rgba(255, 107, 53, 0.2);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  text-align: left;
+  box-shadow: 5px 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h3 {
+  color: #ff6b35;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 2px solid #ffb347;
+  background: rgba(255, 255, 255, 0.8);
+  margin-bottom: 35px;
+  outline: none;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+.sidebar input:focus {
+  background: white;
+  box-shadow: 0 0 15px rgba(255, 107, 53, 0.3);
+  border-color: #ff6b35;
+}
+
+/* Category Buttons */
+.category-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.category-btn {
+  text-align: left;
+  padding: 12px 15px;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.7);
+  color: #57606f;
+  font-weight: normal;
+  transition: all 0.3s ease;
+}
+
+.category-btn:hover {
+  background: rgba(255, 179, 71, 0.2);
+  border-color: #ffb347;
+}
+
+.category-btn.active {
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
+}
+
+/* Main Content */
+.content {
+  flex: 1;
+  padding: 30px;
+  text-align: center;
+  background: linear-gradient(135deg, transparent 0%, rgba(252, 182, 159, 0.3) 100%);
+  overflow-y: auto;
+}
+
+.content h1 {
+  color: #ff6b35;
+  margin-bottom: 40px;
+  font-size: 2.2rem;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Cards Grid */
+.food-grid {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+  padding-bottom: 100px;
+}
+
+/* Food Card */
+.food-card {
+  border-radius: 20px;
+  width: 270px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 250, 240, 0.95) 100%);
+  box-shadow: 0 8px 25px rgba(255, 107, 53, 0.15);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 2px solid rgba(255, 179, 71, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.food-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(255, 107, 53, 0.25);
+  border-color: #ffb347;
+}
+
+.food-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.food-card-content {
+  padding: 20px;
+}
+
+.food-card-content h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.1rem;
+  color: #2f3542;
+}
+
+.food-card-content p {
+  color: #ff6b35;
+  font-weight: bold;
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Quantity Selector */
+.quantity-selector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 50%, rgba(255, 179, 71, 0.2) 100%);
+  border-radius: 30px;
+  padding: 6px;
+  margin-top: 15px;
+  transition: all 0.3s ease;
+}
+
+.quantity-btn {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: none;
+  background: white;
+  cursor: pointer;
+  font-weight: bold;
+  color: #ff6b35;
+  transition: all 0.2s ease;
+  font-size: 1.1rem;
+}
+
+.quantity-btn:hover {
+  background: #ff6b35;
+  color: white;
+  transform: scale(1.1);
+}
+
+.quantity-btn-plus {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: #ff6b35;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  font-size: 1.1rem;
+}
+
+.quantity-btn-plus:hover {
+  background: #f7931e;
+  transform: scale(1.1);
+}
+
+.quantity-display {
+  font-size: 1.1rem;
+  font-weight: bold;
+  min-width: 25px;
+  color: #ff6b35;
+}
+
+/* Detail Button */
+.detail-btn {
+  width: 100%;
+  padding: 12px 20px;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #00d2d3 0%, #00b8bb 100%);
+  color: white;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 15px;
+}
+
+.detail-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0, 210, 211, 0.3);
+}
+
+/* Empty State */
+.empty-state {
+  margin-top: 100px;
+  color: #a4b0be;
+  background: rgba(255, 255, 255, 0.6);
+  padding: 40px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+}
+
+.empty-state h3 {
+  color: #a4b0be;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .home-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    top: auto;
+    border-right: none;
+    border-bottom: 3px solid rgba(255, 107, 53, 0.2);
+  }
+
+  .content {
+    padding: 20px;
+  }
+
+  .food-grid {
+    gap: 15px;
+  }
+
+  .food-card {
+    width: 100%;
+    max-width: 300px;
+  }
+}

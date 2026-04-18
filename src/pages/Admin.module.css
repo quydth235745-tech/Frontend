@@ -1,0 +1,280 @@
+/* Main Container */
+.container {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  font-size: 17px;
+  padding: 0;
+}
+
+.maxWidth {
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Toolbar */
+.toolbar {
+  background: white;
+  padding: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.toolbarTitle {
+  margin: 0;
+  padding: 20px 30px 0 30px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #2c3e50;
+  letter-spacing: 0.3px;
+}
+
+/* Tabs Navigation */
+.tabsContainer {
+  display: flex;
+  gap: 10px;
+  padding: 20px 30px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.tabButton {
+  padding: 10px 18px;
+  background-color: #f0f0f0;
+  color: #2c3e50;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.tabButton:hover {
+  background-color: #e8e8e8;
+  border-color: #bbb;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.tabButton.active {
+  background-color: #17a2b8;
+  color: #fff;
+  border-color: #17a2b8;
+  box-shadow: 0 2px 6px rgba(23, 162, 184, 0.3);
+}
+
+/* Common Box Style */
+.card {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  margin: 36px;
+  margin-top: 24px;
+}
+
+.cardTitle {
+  color: #2c3e50;
+  font-size: 34px;
+  font-weight: bold;
+  margin-bottom: 24px;
+}
+
+/* Loading */
+.loading {
+  padding: 50px;
+  text-align: center;
+  font-size: 24px;
+}
+
+/* Table Styles */
+.tableContainer {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tableHeader {
+  border-bottom: 2px solid #ecf0f1;
+  background-color: #f8f9fa;
+}
+
+.tableHeadCell {
+  padding: 16px 20px;
+  text-align: left;
+  color: #7f8c8d;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.tableRow {
+  border-bottom: 1px solid #ecf0f1;
+}
+
+.tableCell {
+  padding: 16px 20px;
+  color: #2c3e50;
+  font-size: 16px;
+}
+
+/* Button Styles */
+.btnPrimary {
+  padding: 14px 28px;
+  background-color: #ff9f43;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 17px;
+  transition: all 0.3s;
+}
+
+.btnPrimary:hover {
+  background-color: #ff8c00;
+}
+
+.btnSecondary {
+  padding: 8px 14px;
+  background-color: #3742fa;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  margin-right: 6px;
+  transition: all 0.3s;
+}
+
+.btnSecondary:hover {
+  background-color: #2530c7;
+}
+
+.btnDanger {
+  padding: 8px 14px;
+  background-color: #ff4757;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.btnDanger:hover {
+  background-color: #e74c3c;
+}
+
+.btnWarning {
+  padding: 8px 14px;
+  background-color: #ff9f43;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  margin-right: 6px;
+  transition: all 0.3s;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background-color: #fff;
+  padding: 24px;
+  border-radius: 12px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.modalTitle {
+  color: #2c3e50;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.input,
+.select {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.input:focus,
+.select:focus {
+  outline: none;
+  border-color: #ff9f43;
+  box-shadow: 0 0 0 3px rgba(255, 159, 67, 0.1);
+}
+
+.fileInput {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  width: 100%;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #2c3e50;
+  font-size: 13px;
+}
+
+.imagePreview {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin-top: 12px;
+  border-radius: 6px;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 12px;
+}
+
+.buttonGroup button {
+  flex: 1;
+}
+
+/* Form Messages */
+.successMessage {
+  color: #2ed573;
+  font-size: 12px;
+  margin-top: 12px;
+}
