@@ -99,14 +99,17 @@ function Login() {
           {loading ? 'Đang xử lý...' : 'Vào hệ thống'}
         </button>
 
-        <div style={{ margin: '15px 0', textAlign: 'center' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', marginTop: '15px' }}>
           {enableGoogleLogin ? (
             <>
               <p>Hoặc đăng nhập bằng:</p>
-              <GoogleLogin 
-                onSuccess={handleGoogleSuccess}
-                onError={handleGoogleError}
-              />
+              <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                <GoogleLogin 
+                  onSuccess={handleGoogleSuccess}
+                  onError={handleGoogleError}
+                  width="280"
+                />
+              </div>
             </>
           ) : (
             <p style={{ color: '#64748b', fontSize: '13px' }}>
