@@ -3,7 +3,16 @@ import { toast } from 'react-toastify';
 
 const envApiUrl = import.meta.env.VITE_API_URL?.trim() || '';
 const isPlaceholderApiUrl = /your-backend-cloud-url\.onrender\.com/i.test(envApiUrl);
-const resolvedBaseURL = isPlaceholderApiUrl ? '' : envApiUrl.replace(/\/$/, '');
+const browserHost = typeof window !== 'undefined' ? window.location.hostname : '';
+const isVercelHost = /(?:^|\.)vercel\.app$/i.test(browserHost);
+const isRenderApiUrl = /onrender\.com/i.test(envApiUrl);
+
+// On Vercel, prefer same-origin '/api' so requests go through vercel.json rewrites.
+const shouldUseRelativeApi = isVercelHost && isRenderApiUrl;
+
+const resolvedBaseURL = shouldUseRelativeApi || isPlaceholderApiUrl
+  ? ''
+  : envApiUrl.replace(/\/$/, '');
 
 const axiosClient = axios.create({
   baseURL: resolvedBaseURL,
