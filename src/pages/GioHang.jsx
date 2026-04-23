@@ -15,6 +15,8 @@ function Cart() {
     const [couponCode, setCouponCode] = useState('')
     const [appliedCoupon, setAppliedCoupon] = useState(null)
     const [applyingCoupon, setApplyingCoupon] = useState(false)
+    const [availableCoupons, setAvailableCoupons] = useState([])
+    const [loadingCoupons, setLoadingCoupons] = useState(false)
     const [loading, setLoading] = useState(false)
     const addressRef = useRef(null)
     const navigate = useNavigate()
@@ -239,8 +241,35 @@ function Cart() {
         }
     }, [totalPrice, appliedCoupon])
 
-    const handleApplyCoupon = async () => {
-        if (!couponCode.trim()) {
+    const loadAvailableCoupons = async (currentOrderValue) => {
+        if (!user) {
+            setAvailableCoupons([])
+            return
+        }
+
+        setLoadingCoupons(true)
+        try {
+            const res = await ClientAxios.get('/api/coupons/available', {
+                params: {
+                    orderValue: currentOrderValue
+                }
+            })
+            setAvailableCoupons(res.data?.data || [])
+        } catch (err) {
+            setAvailableCoupons([])
+        } finally {
+            setLoadingCoupons(false)
+        }
+    }
+
+    useEffect(() => {
+        loadAvailableCoupons(totalPrice)
+    }, [totalPrice, user])
+
+    const handleApplyCoupon = async (selectedCode = '') => {
+        const codeToApply = (selectedCode || couponCode || '').trim().toUpperCase()
+
+        if (!codeToApply) {
             toast.warn('Bạn chưa nhập mã khuyến mãi.')
             return
         }
@@ -253,13 +282,13 @@ function Cart() {
         setApplyingCoupon(true)
         try {
             const res = await ClientAxios.post('/api/coupons/validate', {
-                code: couponCode.trim().toUpperCase(),
+                code: codeToApply,
                 orderValue: totalPrice
             })
 
             const result = res.data?.data || {}
             setAppliedCoupon(result)
-            setCouponCode(result.code || couponCode.trim().toUpperCase())
+            setCouponCode(result.code || codeToApply)
             toast.success(`Áp mã thành công, giảm ${Number(result.discountAmount || 0).toLocaleString('vi-VN')} VNĐ`)
         } catch (err) {
             setAppliedCoupon(null)
@@ -267,6 +296,16 @@ function Cart() {
         } finally {
             setApplyingCoupon(false)
         }
+    }
+
+    const handleSelectCoupon = async (coupon) => {
+        const selectedCode = String(coupon?.code || '').trim().toUpperCase()
+        if (!selectedCode) {
+            return
+        }
+
+        setCouponCode(selectedCode)
+        await handleApplyCoupon(selectedCode)
     }
 
     const handleRemoveCoupon = () => {
@@ -537,6 +576,46 @@ function Cart() {
                                     </button>
                                 </div>
                             )}
+
+                            <div style={{ marginTop: '10px' }}>
+                                <p style={{ margin: '0 0 8px', fontSize: '13px', color: '#747d8c' }}>Mã đang có:</p>
+                                {loadingCoupons ? (
+                                    <span style={{ fontSize: '13px', color: '#57606f' }}>Đang tải mã khuyến mãi...</span>
+                                ) : availableCoupons.length === 0 ? (
+                                    <span style={{ fontSize: '13px', color: '#a4b0be' }}>Hiện chưa có mã phù hợp đơn hàng của bạn.</span>
+                                ) : (
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                        {availableCoupons.map((coupon) => {
+                                            const isSelected = (couponCode || '').trim().toUpperCase() === String(coupon.code || '').trim().toUpperCase()
+                                            return (
+                                                <button
+                                                    key={coupon._id || coupon.code}
+                                                    type="button"
+                                                    onClick={() => handleSelectCoupon(coupon)}
+                                                    style={{
+                                                        textAlign: 'left',
+                                                        border: isSelected ? '1px solid #2ed573' : '1px solid #dfe4ea',
+                                                        backgroundColor: isSelected ? '#ecfff4' : '#fff',
+                                                        borderRadius: '10px',
+                                                        padding: '10px',
+                                                        cursor: 'pointer'
+                                                    }}
+                                                >
+                                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px' }}>
+                                                        <strong style={{ color: '#2f3542' }}>{coupon.code}</strong>
+                                                        <span style={{ fontSize: '12px', color: '#57606f' }}>
+                                                            {coupon.discountType === 'percent' ? `${coupon.discountValue}%` : `${Number(coupon.discountValue || 0).toLocaleString('vi-VN')} VNĐ`}
+                                                        </span>
+                                                    </div>
+                                                    <div style={{ marginTop: '4px', fontSize: '12px', color: '#747d8c' }}>
+                                                        Đơn tối thiểu: {Number(coupon.minOrderValue || 0).toLocaleString('vi-VN')} VNĐ | HSD: {coupon.expiresAt ? new Date(coupon.expiresAt).toLocaleDateString('vi-VN') : '-'}
+                                                    </div>
+                                                </button>
+                                            )
+                                        })}
+                                    </div>
+                                )}
+                            </div>
                         </div>
 
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
