@@ -6,11 +6,14 @@ import styles from './Admin.module.css'
 import AdminTopBar from '../components/AdminTopBar'
 import AdminDashboard from './AdminDashboard'
 import AdminUsers from './AdminUsers'
+import AdminOrders from './AdminOrders'
 
 function Admin() {
   const [searchParams] = useSearchParams()
   const activeTabParam = searchParams.get('tab') || 'dashboard'
-  const activeTab = activeTabParam === 'users' ? 'users' : 'dashboard'
+  const activeTab = ['dashboard', 'users', 'orders'].includes(activeTabParam)
+    ? activeTabParam
+    : 'dashboard'
   const [foods, setFoods] = useState([])
   const [orders, setOrders] = useState([])
   const [users, setUsers] = useState([])
@@ -53,6 +56,11 @@ function Admin() {
         {/* Users Tab */}
         {activeTab === 'users' && (
           <AdminUsers users={users} onUsersUpdate={fetchAll} />
+        )}
+
+        {/* Orders Tab */}
+        {activeTab === 'orders' && (
+          <AdminOrders orders={orders} onOrdersUpdate={fetchAll} />
         )}
       </div>
     </div>

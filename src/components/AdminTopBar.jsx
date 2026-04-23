@@ -6,7 +6,7 @@ const tabs = [
   { key: 'users', href: '/admin?tab=users', label: '👥 Tài Khoản' },
   { key: 'khuyenmai', href: '/admin/khuyenmai', label: '🎁 Khuyến Mãi' },
   { key: 'monan', href: '/admin/monan', label: '🍽️ Thực Đơn' },
-  { key: 'donhang', href: '/admin/donhang', label: '🛒 Đơn Hàng' },
+  { key: 'orders', href: '/admin?tab=orders', label: '🛒 Đơn Hàng' },
   { key: 'binhluan', href: '/admin/binhluan', label: '💬 Bình Luận' },
   { key: 'thanhtoan', href: '/admin/thanhtoan', label: '💳 Thanh Toán' }
 ];
