@@ -29,7 +29,11 @@ function Login() {
       login(res.data.user)
       navigate('/')
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Sai tài khoản hoặc mật khẩu rồi bạn ơi!')
+      if (!err.response) {
+        toast.error('Không kết nối được máy chủ. Hãy kiểm tra backend đang chạy ở cổng 3000.')
+      } else {
+        toast.error(err.response?.data?.message || 'Sai tài khoản hoặc mật khẩu rồi bạn ơi!')
+      }
     } finally {
       setLoading(false)
     }
