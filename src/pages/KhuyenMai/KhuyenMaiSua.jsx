@@ -61,7 +61,7 @@ export default function KhuyenMaiSua() {
       toast.success('✅ Cập nhật khuyến mãi thành công');
       navigate('/admin/khuyenmai');
     } catch (error) {
-      toast.error('❌ Lỗi khi cập nhật khuyến mãi');
+      toast.error(error.response?.data?.message || '❌ Lỗi khi cập nhật khuyến mãi');
       console.error(error);
     }
   };
@@ -95,6 +95,17 @@ export default function KhuyenMaiSua() {
             type="number"
             name="value"
             value={formData.value}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className={styles.formGroup}>
+          <label>Đơn Tối Thiểu (VNĐ):</label>
+          <input
+            type="number"
+            name="minOrderValue"
+            min="1"
+            value={formData.minOrderValue}
             onChange={handleChange}
             required
           />

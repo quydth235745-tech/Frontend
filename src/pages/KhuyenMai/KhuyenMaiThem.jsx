@@ -11,7 +11,7 @@ export default function KhuyenMaiThem() {
     type: 'percentage',
     value: '',
     expiryDate: '',
-    minOrderValue: 0,
+    minOrderValue: '',
     maxUses: 1
   });
 
@@ -34,7 +34,7 @@ export default function KhuyenMaiThem() {
       toast.success('✅ Thêm khuyến mãi thành công');
       navigate('/admin/khuyenmai');
     } catch (error) {
-      toast.error('❌ Lỗi khi thêm khuyến mãi');
+      toast.error(error.response?.data?.message || '❌ Lỗi khi thêm khuyến mãi');
       console.error(error);
     }
   };
@@ -66,6 +66,17 @@ export default function KhuyenMaiThem() {
             type="number"
             name="value"
             value={formData.value}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className={styles.formGroup}>
+          <label>Đơn Tối Thiểu (VNĐ):</label>
+          <input
+            type="number"
+            name="minOrderValue"
+            min="1"
+            value={formData.minOrderValue}
             onChange={handleChange}
             required
           />

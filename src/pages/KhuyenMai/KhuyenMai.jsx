@@ -60,6 +60,7 @@ export default function KhuyenMai() {
               <th>Mã</th>
               <th>Loại</th>
               <th>Giá Trị</th>
+              <th>Đơn Tối Thiểu</th>
               <th>Ngày Hết Hạn</th>
               <th>Hành Động</th>
             </tr>
@@ -70,6 +71,7 @@ export default function KhuyenMai() {
                 <td>{coupon.code}</td>
                 <td>{coupon.discountType === 'percent' ? 'Phần Trăm' : 'Cố Định'}</td>
                 <td>{coupon.discountValue}{coupon.discountType === 'percent' ? '%' : ' VND'}</td>
+                <td>{Number(coupon.minOrderValue || 0).toLocaleString('vi-VN')} VND</td>
                 <td>{coupon.expiresAt ? new Date(coupon.expiresAt).toLocaleDateString('vi-VN') : '-'}</td>
                 <td>
                   <Link to={`/admin/khuyenmai/sua/${coupon._id}`} className={styles.btnEdit}>
