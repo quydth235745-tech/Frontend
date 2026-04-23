@@ -12,6 +12,9 @@ function Cart() {
     const [customer, setCustomer] = useState({ name: '', email: '', phone: '', address: '' })
     const [deliveryLocation, setDeliveryLocation] = useState(null)
     const [shippingFee, setShippingFee] = useState(5000)
+    const [couponCode, setCouponCode] = useState('')
+    const [appliedCoupon, setAppliedCoupon] = useState(null)
+    const [applyingCoupon, setApplyingCoupon] = useState(false)
     const [loading, setLoading] = useState(false)
     const addressRef = useRef(null)
     const navigate = useNavigate()
@@ -226,6 +229,52 @@ function Cart() {
         return sum + price * qty
     }, 0)
 
+    const discountAmount = Number(appliedCoupon?.discountAmount || 0)
+    const finalTotal = Math.max(0, totalPrice + shippingFee - discountAmount)
+
+    useEffect(() => {
+        if (appliedCoupon && Number(appliedCoupon.orderValue) !== Number(totalPrice)) {
+            setAppliedCoupon(null)
+            toast.info('Giỏ hàng thay đổi, vui lòng áp lại mã khuyến mãi.')
+        }
+    }, [totalPrice, appliedCoupon])
+
+    const handleApplyCoupon = async () => {
+        if (!couponCode.trim()) {
+            toast.warn('Bạn chưa nhập mã khuyến mãi.')
+            return
+        }
+
+        if (totalPrice <= 0) {
+            toast.warn('Giỏ hàng trống, chưa thể áp mã.')
+            return
+        }
+
+        setApplyingCoupon(true)
+        try {
+            const res = await ClientAxios.post('/api/coupons/validate', {
+                code: couponCode.trim().toUpperCase(),
+                orderValue: totalPrice
+            })
+
+            const result = res.data?.data || {}
+            setAppliedCoupon(result)
+            setCouponCode(result.code || couponCode.trim().toUpperCase())
+            toast.success(`Áp mã thành công, giảm ${Number(result.discountAmount || 0).toLocaleString('vi-VN')} VNĐ`)
+        } catch (err) {
+            setAppliedCoupon(null)
+            toast.error(err.response?.data?.message || 'Không áp dụng được mã khuyến mãi')
+        } finally {
+            setApplyingCoupon(false)
+        }
+    }
+
+    const handleRemoveCoupon = () => {
+        setAppliedCoupon(null)
+        setCouponCode('')
+        toast.info('Đã bỏ mã khuyến mãi.')
+    }
+
     const handleOrder = async () => {
         if (!customer.name || !customer.phone || !customer.address) {
             toast.warn('📋 Bạn nhập thiếu thông tin giao hàng rồi kìa! 🥰')
@@ -259,11 +308,12 @@ function Cart() {
                     price: item.price,
                     quantity: item.quantity || 1
                 })),
-                totalPrice: totalPrice + shippingFee,
+                totalPrice: finalTotal,
                 customerName: customer.name,
                 customerEmail: customer.email,
                 phone: customer.phone,
                 address: customer.address,
+                couponCode: appliedCoupon?.code || '',
                 deliveryLocation: deliveryLocation || null  // Allow null location
             })
 
@@ -273,6 +323,8 @@ function Cart() {
             setCustomer({ name: '', email: '', phone: '', address: '' })
             setDeliveryLocation(null)
             setShippingFee(5000)
+            setCouponCode('')
+            setAppliedCoupon(null)
             navigate('/orders')
         } catch (err) {
             const errorData = err.response?.data || {}
@@ -452,6 +504,41 @@ function Cart() {
                             <span style={{ fontSize: '15px', color: '#747d8c' }}>Tạm tính:</span>
                             <span style={{ fontSize: '16px', color: '#2f3542', fontWeight: 'bold' }}>{totalPrice.toLocaleString()} VNĐ</span>
                         </div>
+
+                        <div style={{ marginBottom: '16px', padding: '12px', border: '1px dashed #dfe4ea', borderRadius: '12px', backgroundColor: '#fafafa' }}>
+                            <p style={{ margin: '0 0 8px', fontSize: '14px', color: '#57606f', fontWeight: 'bold' }}>🎁 Mã khuyến mãi</p>
+                            <div style={{ display: 'flex', gap: '8px' }}>
+                                <input
+                                    value={couponCode}
+                                    onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
+                                    placeholder="Nhập mã giảm giá"
+                                    style={{ flex: 1, padding: '10px 12px', border: '1px solid #dfe4ea', borderRadius: '10px', outline: 'none', fontSize: '14px' }}
+                                />
+                                <button
+                                    type="button"
+                                    onClick={handleApplyCoupon}
+                                    disabled={applyingCoupon}
+                                    style={{ padding: '10px 12px', border: 'none', borderRadius: '10px', backgroundColor: '#3742fa', color: 'white', fontWeight: 'bold', cursor: applyingCoupon ? 'not-allowed' : 'pointer' }}
+                                >
+                                    {applyingCoupon ? 'Đang áp...' : 'Áp dụng'}
+                                </button>
+                            </div>
+                            {appliedCoupon && (
+                                <div style={{ marginTop: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <span style={{ color: '#2ed573', fontSize: '13px', fontWeight: 'bold' }}>
+                                        ✅ Đã áp mã {appliedCoupon.code} (-{discountAmount.toLocaleString('vi-VN')} VNĐ)
+                                    </span>
+                                    <button
+                                        type="button"
+                                        onClick={handleRemoveCoupon}
+                                        style={{ border: 'none', background: 'transparent', color: '#ff4757', fontSize: '13px', textDecoration: 'underline', cursor: 'pointer' }}
+                                    >
+                                        Bỏ mã
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                             <span style={{ fontSize: '15px', color: '#747d8c' }}>Phí giao hàng:</span>
                             <span style={{ fontSize: '15px', color: '#2ed573', fontWeight: 'bold' }}>
@@ -459,10 +546,19 @@ function Cart() {
                             </span>
                         </div>
 
+                        {discountAmount > 0 && (
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                                <span style={{ fontSize: '15px', color: '#747d8c' }}>Giảm giá:</span>
+                                <span style={{ fontSize: '15px', color: '#ff4757', fontWeight: 'bold' }}>
+                                    -{discountAmount.toLocaleString('vi-VN')} VNĐ
+                                </span>
+                            </div>
+                        )}
+
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '20px', paddingTop: '20px', borderTop: '2px dashed #eee' }}>
                             <span style={{ fontSize: '18px', color: '#2f3542', fontWeight: 'bold' }}>Tổng cộng:</span>
                             <h3 style={{ color: '#ff4757', fontSize: '28px', margin: 0, fontWeight: 800 }}>
-                                {(totalPrice + shippingFee).toLocaleString()} VNĐ
+                                {finalTotal.toLocaleString('vi-VN')} VNĐ
                             </h3>
                         </div>
 
