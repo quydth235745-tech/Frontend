@@ -43,7 +43,8 @@ function Login() {
   const handleGoogleSuccess = async (credentialResponse) => {
     try {
       const res = await ClientAxios.post('/api/auth/google-login', {
-        token: credentialResponse.credential
+        token: credentialResponse.credential,
+        clientId: googleClientId
       })
       toast.success('Đăng nhập Google thành công!')
       localStorage.setItem('token', res.data.token)
