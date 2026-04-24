@@ -187,7 +187,8 @@ function AppContent() {
 
 function App() {
   const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-  const enableGoogleLogin = import.meta.env.VITE_ENABLE_GOOGLE_LOGIN === 'true' && !!googleClientId;
+  const rawEnableGoogleLogin = String(import.meta.env.VITE_ENABLE_GOOGLE_LOGIN || '').trim();
+  const enableGoogleLogin = /^(1|true|yes)$/i.test(rawEnableGoogleLogin) && !!googleClientId;
   
   if (!enableGoogleLogin) {
     return (
